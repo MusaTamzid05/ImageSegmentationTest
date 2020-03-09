@@ -13,6 +13,14 @@ class Processor:
         mask1 = cv2.inRange(hsv_image , np.array(min_range1), np.array(max_range1))
         mask2 = cv2.inRange(hsv_image , np.array(min_range2), np.array(max_range2))
 
-        return mask1 , mask2
+
+        result = mask1 + mask2
+        result = cv2.morphologyEx(result , cv2.MORPH_OPEN , np.ones((3 , 3) , np.uint8))
+        result = cv2.morphologyEx(result , cv2.MORPH_DILATE, np.ones((3 , 3) , np.uint8))
+
+        object_mask = cv2.bitwise_not(result)
+        result = cv2.bitwise_and(image , image , mask = object_mask)
+
+        return mask1 , mask2 , result
 
 

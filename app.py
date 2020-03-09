@@ -209,11 +209,13 @@ class App:
         cv2.namedWindow(self.mask1_window, cv2.WINDOW_NORMAL)
         self.mask2_window = "mask2"
         cv2.namedWindow(self.mask2_window, cv2.WINDOW_NORMAL)
+        self.result_window = "Result"
+        cv2.namedWindow(self.result_window , cv2.WINDOW_NORMAL)
 
 
 
     def _display_result(self , image):
-        mask1 , mask2 = self.processor.process(image = image ,
+        mask1 , mask2 , result = self.processor.process(image = image ,
                     min_range1 = [lower_hue1 , lower_segmentation1 , lower_value1],
                     max_range1 = [higher_hue1 , higher_segmention1 , higher_value1],
                     min_range2 = [lower_hue2 , lower_segmentation2 , lower_value2],
@@ -221,14 +223,24 @@ class App:
                     )
         cv2.imshow(self.mask1_window, mask1)
         cv2.imshow(self.mask2_window, mask2)
+        cv2.imshow(self.result_window , result)
+
+    def _is_video(self):
+
+        if type(self.src) == int:
+            return True
+
+        if self.src.endswith("mp4") == True:
+            return True
+
+        return False
 
 
     def run(self):
 
-        video_src = False
+        video_src = self._is_video()
 
-        if self.src.endswith("mp4") or type(self.src) == int:
-            video_src = True
+        if video_src ==  True:
             cap = cv2.VideoCapture(self.src)
 
         if video_src == False:
