@@ -1,95 +1,183 @@
 import cv2
 from processor import Processor
 
-lower_hue = 10
-higher_hue = 100
+lower_hue1 = 10
+higher_hue1 = 100
 
-lower_segmentation = 10
-higher_segmentation = 100
+lower_segmentation1 = 10
+higher_segmention1 = 100
 
 
-lower_value = 10
-higher_value = 100
+lower_value1 = 10
+higher_value1 = 100
+
+
+lower_hue2 = 10
+higher_hue2 = 100
+
+lower_segmentation2 = 10
+higher_segmention2 = 100
+
+
+lower_value2 = 10
+higher_value2 = 100
 
 def show_values():
 
-    print("Lower Hue : {}".format(lower_hue))
-    print("Higher Hue : {}".format(higher_hue))
-    print("Lower Segmentation : {}".format(lower_segmentation))
-    print("Higher Segmentation : {}".format(higher_segmentation))
-    print("Lower Value : {}".format(lower_value))
-    print("Higher AValue : {}".format(higher_value))
+    print("Lower Hue 1: {}".format(lower_hue1))
+    print("Higher Hue 1 : {}".format(higher_hue1))
+    print("Lower Segmentation 1: {}".format(lower_segmentation1))
+    print("Higher Segmentation 1: {}".format(higher_segmention1))
+    print("Lower Value 1: {}".format(lower_value1))
+    print("Higher Value 1: {}".format(higher_value1))
 
-def update_lower_hue(value):
 
-    global lower_hue
+    print("Lower Hue 2: {}".format(lower_hue2))
+    print("Higher Hue 2: {}".format(higher_hue2))
+    print("Lower Segmentation 2 : {}".format(lower_segmentation2))
+    print("Higher Segmentation 2 : {}".format(higher_segmention2))
+    print("Lower Value 2 : {}".format(lower_value2))
+    print("Higher Value 2 : {}".format(higher_value2))
 
-    if value > higher_hue:
+def update_lower_hue1(value):
+
+    global lower_hue1
+
+    if value > higher_hue1:
         print("cannot update => lower_h > higher_h")
         return
 
-    lower_hue = value
+    lower_hue1 = value
     show_values()
 
 
-def update_higher_hue(value):
+def update_higher_hue1(value):
 
-    global higher_hue
+    global higher_hue1
 
-    if value < lower_hue:
-        print("Cannot update => lower_hue > higher_hue")
+    if value < lower_hue1:
+        print("Cannot update => lower_hue1 > higher_hue1")
         return
 
-    higher_hue = value
+    higher_hue1 = value
     show_values()
 
 
-def update_lower_segmentation(value):
+def update_lower_segmentation1(value):
 
-    global lower_segmentation
+    global lower_segmentation1
 
-    if value >  higher_segmentation:
-        print("cannot update => lower_segmentation > higher_segmentation")
+    if value >  higher_segmention1:
+        print("cannot update => lower_segmentation1 > higher_segmention1")
         return
 
-    lower_segmentation = value
+    lower_segmentation1 = value
     show_values()
 
-def update_higher_segmentation(value):
+def update_higher_segmention1(value):
 
-    global higher_segmentation
+    global higher_segmention1
 
-    if value < lower_segmentation:
-        print("cannot update => lower_segmentation > higher_segmentation")
+    if value < lower_segmentation1:
+        print("cannot update => lower_segmentation1 > higher_segmention1")
         return
 
-    higher_segmentation = value
+    higher_segmention1 = value
     show_values()
 
 
-def update_lower_value(value):
+def update_lower_value1(value):
 
-    global lower_value
+    global lower_value1
 
-    if value > higher_value:
-        print("cannot update => lower_value > higher_value")
+    if value > higher_value1:
+        print("cannot update => lower_value1 > higher_value1")
         return
 
-    lower_value = value
+    lower_value1 = value
     show_values()
 
 
-def update_higher_value(value):
+def update_higher_value1(value):
 
-    global higher_value
+    global higher_value1
 
-    if value < lower_value:
-        print("cannot update => lower_value > higher_segmentation")
+    if value < lower_value1:
+        print("cannot update => lower_value1 > higher_segmention1")
         return
 
-    higher_value = value
+    higher_value1 = value
     show_values()
 
+
+def update_lower_hue2(value):
+
+    global lower_hue2
+
+    if value > higher_hue2:
+        print("cannot update => lower_h > higher_h")
+        return
+
+    lower_hue2 = value
+    show_values()
+
+
+def update_higher_hue2(value):
+
+    global higher_hue2
+
+    if value < lower_hue2:
+        print("Cannot update => lower_hue2 > higher_hue2")
+        return
+
+    higher_hue2 = value
+    show_values()
+
+
+def update_lower_segmentation2(value):
+
+    global lower_segmentation2
+
+    if value >  higher_segmention2:
+        print("cannot update => lower_segmentation2 > higher_segmention2")
+        return
+
+    lower_segmentation2 = value
+    show_values()
+
+def update_higher_segmention2(value):
+
+    global higher_segmention2
+
+    if value < lower_segmentation2:
+        print("cannot update => lower_segmentation2 > higher_segmention2")
+        return
+
+    higher_segmention2 = value
+    show_values()
+
+
+def update_lower_value2(value):
+
+    global lower_value2
+
+    if value > higher_value2:
+        print("cannot update => lower_value2 > higher_value2")
+        return
+
+    lower_value2 = value
+    show_values()
+
+def update_higher_value2(value):
+
+    global higher_value2
+
+    if value < lower_value2:
+        print("cannot update => lower_value2 > higher_segmention2")
+        return
+
+    higher_value2 = value
+    show_values()
 
 
 class App:
@@ -102,12 +190,20 @@ class App:
     def _init_window(self):
         self.window_name =  "Window"
         cv2.namedWindow(self.window_name , cv2.WINDOW_NORMAL)
-        cv2.createTrackbar("lower_h" , self.window_name , lower_hue , 180 ,  update_lower_hue)
-        cv2.createTrackbar("higher_h" , self.window_name , higher_hue , 180 ,  update_higher_hue)
-        cv2.createTrackbar("lower_s" , self.window_name , lower_segmentation , 180 ,  update_lower_segmentation)
-        cv2.createTrackbar("higher_s" , self.window_name , higher_segmentation , 180 ,  update_higher_segmentation)
-        cv2.createTrackbar("lower_v" , self.window_name , lower_value, 180 ,  update_lower_value)
-        cv2.createTrackbar("higher_v" , self.window_name , higher_value , 180 ,  update_higher_value)
+        cv2.createTrackbar("lower_h1" , self.window_name , lower_hue1 , 180 ,  update_lower_hue1)
+        cv2.createTrackbar("higher_h1" , self.window_name , higher_hue1 , 180 ,  update_higher_hue1)
+        cv2.createTrackbar("lower_s1" , self.window_name , lower_segmentation1 , 255,  update_lower_segmentation1)
+        cv2.createTrackbar("higher_s1" , self.window_name , higher_segmention1 , 255 ,  update_higher_segmention1)
+        cv2.createTrackbar("lower_v1" , self.window_name , lower_value1, 255 ,  update_lower_value1)
+        cv2.createTrackbar("higher_v1" , self.window_name , higher_value1 , 255,  update_higher_value1)
+
+
+        cv2.createTrackbar("lower_h2" , self.window_name , lower_hue2 , 180 ,  update_lower_hue2)
+        cv2.createTrackbar("higher_h2" , self.window_name , higher_hue2 , 180 ,  update_higher_hue2)
+        cv2.createTrackbar("lower_s2" , self.window_name , lower_segmentation2 , 255,  update_lower_segmentation2)
+        cv2.createTrackbar("higher_s2" , self.window_name , higher_segmention2 , 255 ,  update_higher_segmention2)
+        cv2.createTrackbar("lower_v2" , self.window_name , lower_value2, 255 ,  update_lower_value2)
+        cv2.createTrackbar("higher_v2" , self.window_name , higher_value2 , 255,  update_higher_value2)
 
         self.result_window = "Result"
         cv2.namedWindow(self.result_window , cv2.WINDOW_NORMAL)
@@ -116,8 +212,8 @@ class App:
 
     def _display_result(self , image):
         result = self.processor.process(image = image ,
-                    min_range = [lower_hue , lower_segmentation , lower_value],
-                    max_range = [higher_hue , higher_segmentation , higher_value])
+                    min_range = [lower_hue1 , lower_segmentation1 , lower_value1],
+                    max_range = [higher_hue1 , higher_segmention1 , higher_value1])
         cv2.imshow(self.result_window , result)
 
 
