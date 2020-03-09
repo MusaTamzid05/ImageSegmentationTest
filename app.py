@@ -129,7 +129,8 @@ class App:
         while True:
             _ , frame = cap.read()
 
-            self._show(frame)
+            cv2.imshow(self.window_name , frame)
+            self._display_result(frame)
 
             if cv2.waitKey(1) & 0xFF == ord("q"):
                 break
