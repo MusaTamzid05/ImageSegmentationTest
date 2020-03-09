@@ -109,6 +109,10 @@ class App:
         cv2.createTrackbar("lower_v" , self.window_name , lower_value, 180 ,  update_lower_value)
         cv2.createTrackbar("higher_v" , self.window_name , higher_value , 180 ,  update_higher_value)
 
+        self.result_window = "Result"
+        cv2.namedWindow(self.result_window , cv2.WINDOW_NORMAL)
+
+
     def run(self):
 
         if self.src.endswith("mp4") or type(self.src) == int:
@@ -133,6 +137,13 @@ class App:
         cap.release()
         cv2.destroyAllWindows()
 
+    def _display_result(self , image):
+        result = self.processor.process(image = image ,
+                    min_range = [lower_hue , lower_segmentation , lower_value],
+                    max_range = [higher_hue , higher_segmentation , higher_value])
+        cv2.imshow(self.result_window , result)
+
+
     def _display_image(self):
 
         image = cv2.imread(self.src)
@@ -141,13 +152,13 @@ class App:
             print("No a valid image => {}".format(self.src))
             return
 
-        image = self.processor.process(image)
-        self._show(image)
-        cv2.waitKey()
+        while True:
+            self._display_result(image)
+            cv2.imshow(self.window_name , image)
 
-    def _show(self , image):
+            if cv2.waitKey(1) & 0xFF == ord("q"):
+                break
 
-        cv2.imshow(self.window_name , image)
 
 
 
