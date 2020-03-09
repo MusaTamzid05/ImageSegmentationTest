@@ -113,30 +113,6 @@ class App:
         cv2.namedWindow(self.result_window , cv2.WINDOW_NORMAL)
 
 
-    def run(self):
-
-        if self.src.endswith("mp4") or type(self.src) == int:
-            self._run_camera()
-            return
-
-        self._display_image()
-
-
-    def _run_camera(self):
-
-        cap = cv2.VideoCapture(self.src)
-
-        while True:
-            _ , frame = cap.read()
-
-            cv2.imshow(self.window_name , frame)
-            self._display_result(frame)
-
-            if cv2.waitKey(1) & 0xFF == ord("q"):
-                break
-
-        cap.release()
-        cv2.destroyAllWindows()
 
     def _display_result(self , image):
         result = self.processor.process(image = image ,
@@ -145,15 +121,27 @@ class App:
         cv2.imshow(self.result_window , result)
 
 
-    def _display_image(self):
+    def run(self):
 
-        image = cv2.imread(self.src)
+        video_src = False
 
-        if image is None:
-            print("No a valid image => {}".format(self.src))
-            return
+        if self.src.endswith("mp4") or type(self.src) == int:
+            video_src = True
+            cap = cv2.VideoCapture(self.src)
+
+        if video_src == False:
+            image = cv2.imread(self.src)
+
+            if image is None:
+                print("No a valid image => {}".format(self.src))
+                return
 
         while True:
+
+            if video_src:
+                _ , image = cap.read()
+
+
             self._display_result(image)
             cv2.imshow(self.window_name , image)
 
