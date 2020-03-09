@@ -205,16 +205,22 @@ class App:
         cv2.createTrackbar("lower_v2" , self.window_name , lower_value2, 255 ,  update_lower_value2)
         cv2.createTrackbar("higher_v2" , self.window_name , higher_value2 , 255,  update_higher_value2)
 
-        self.result_window = "Result"
-        cv2.namedWindow(self.result_window , cv2.WINDOW_NORMAL)
+        self.mask1_window = "mask1"
+        cv2.namedWindow(self.mask1_window, cv2.WINDOW_NORMAL)
+        self.mask2_window = "mask2"
+        cv2.namedWindow(self.mask2_window, cv2.WINDOW_NORMAL)
 
 
 
     def _display_result(self , image):
-        result = self.processor.process(image = image ,
-                    min_range = [lower_hue1 , lower_segmentation1 , lower_value1],
-                    max_range = [higher_hue1 , higher_segmention1 , higher_value1])
-        cv2.imshow(self.result_window , result)
+        mask1 , mask2 = self.processor.process(image = image ,
+                    min_range1 = [lower_hue1 , lower_segmentation1 , lower_value1],
+                    max_range1 = [higher_hue1 , higher_segmention1 , higher_value1],
+                    min_range2 = [lower_hue2 , lower_segmentation2 , lower_value2],
+                    max_range2 = [higher_hue2, higher_segmention2, higher_value2],
+                    )
+        cv2.imshow(self.mask1_window, mask1)
+        cv2.imshow(self.mask2_window, mask2)
 
 
     def run(self):
