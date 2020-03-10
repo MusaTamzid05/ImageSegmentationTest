@@ -21,6 +21,6 @@ class Processor:
         object_mask = cv2.bitwise_not(result)
         result = cv2.bitwise_and(image , image , mask = object_mask)
 
-        return mask1 , mask2 , result
+        return mask1 , mask2 , object_mask ,  result
 
 
